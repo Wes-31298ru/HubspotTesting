@@ -1,6 +1,6 @@
-# HubSpot MCP Server Integration
+# MCP Server Integration for Claude Desktop
 
-This repository contains the configuration for integrating HubSpot with Claude Desktop via the Model Context Protocol (MCP).
+This repository contains the configuration for integrating multiple MCP servers with Claude Desktop via the Model Context Protocol (MCP), including HubSpot and AWS Serverless.
 
 ## Setup Complete
 
@@ -34,7 +34,65 @@ Once you restart Claude Desktop, you'll have access to powerful HubSpot integrat
 - Add a note for Acme Inc. in my HubSpot account.
 - List my overdue HubSpot tasks.
 
+## AWS Serverless MCP Server Integration
+
+In addition to HubSpot, you can add the AWS Serverless MCP server for AI-powered serverless development.
+
+### Configuration
+
+Add the following to your `~/.config/claude/claude_desktop_config.json` file (or see `claude_desktop_config.example.json` in this repo):
+
+```json
+{
+  "mcpServers": {
+    "hubspot": {
+      "command": "npx",
+      "args": ["-y", "@hubspot/mcp-server@0.4.0"],
+      "env": {
+        "HUBSPOT_ACCESS_TOKEN": "your-token-here"
+      }
+    },
+    "aws-serverless": {
+      "command": "npx",
+      "args": ["-y", "@awslabs/aws-serverless-mcp-server"],
+      "env": {
+        "AWS_PROFILE": "default",
+        "AWS_REGION": "us-east-1"
+      }
+    }
+  }
+}
+```
+
+### AWS Configuration Options
+
+You can configure the AWS Serverless MCP server using these environment variables:
+
+- **AWS_PROFILE**: AWS CLI profile to use for credentials (recommended)
+- **AWS_REGION**: AWS region to use (default: us-east-1)
+- **AWS_ACCESS_KEY_ID** / **AWS_SECRET_ACCESS_KEY**: Explicit AWS credentials (alternative to AWS_PROFILE)
+- **AWS_SESSION_TOKEN**: Session token for temporary credentials
+- **FASTMCP_LOG_LEVEL**: Logging level (ERROR, WARNING, INFO, DEBUG)
+
+### What You Can Do with AWS Serverless MCP
+
+The AWS Serverless MCP server provides:
+
+- **AI-Powered Serverless Development**: Contextual guidance for building serverless applications aligned with AWS best practices
+- **Comprehensive Tooling**: Tools for initialization, deployment, monitoring, and troubleshooting of serverless applications
+- **Read-Only Mode**: Runs in read-only mode by default for safer production environments
+
+### Prerequisites
+
+Before using the AWS Serverless MCP server:
+
+1. Install and configure the AWS CLI
+2. Set up AWS credentials using `aws configure` or AWS profiles
+3. Ensure you have appropriate IAM permissions for serverless services
+
 ## Available Tools
+
+### HubSpot MCP Server
 
 The HubSpot MCP server provides the following tool categories:
 
@@ -48,9 +106,20 @@ The HubSpot MCP server provides the following tool categories:
 
 ## Next Steps
 
-1. **Restart Claude Desktop** to activate the HubSpot MCP integration
-2. Test the connection by asking Claude about your HubSpot data
-3. Explore the available tools and capabilities
+1. **Configure AWS Credentials** (if adding AWS Serverless MCP):
+   - Run `aws configure` to set up your AWS credentials
+   - Or configure an AWS profile that matches the AWS_PROFILE in your config
+
+2. **Update Claude Desktop Config**:
+   - Edit `~/.config/claude/claude_desktop_config.json`
+   - Add the AWS Serverless MCP server configuration (see example above)
+
+3. **Restart Claude Desktop** to activate both MCP integrations
+
+4. **Test the Connections**:
+   - Ask Claude about your HubSpot data
+   - Ask Claude to help with AWS serverless development tasks
+   - Explore the available tools and capabilities from both servers
 
 ## Security Notes
 
@@ -68,9 +137,17 @@ If you encounter issues:
 
 ## Resources
 
+### HubSpot MCP Server
 - [HubSpot MCP Documentation](https://developers.hubspot.com/mcp)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
 - [HubSpot Developer Docs](https://developers.hubspot.com/)
+
+### AWS Serverless MCP Server
+- [AWS Serverless MCP Server Documentation](https://awslabs.github.io/mcp/servers/aws-serverless-mcp-server)
+- [AWS Serverless MCP Server Blog Post](https://aws.amazon.com/blogs/compute/introducing-aws-serverless-mcp-server-ai-powered-development-for-modern-applications/)
+- [AWS Serverless Documentation](https://aws.amazon.com/serverless/)
+
+### General
+- [Model Context Protocol](https://modelcontextprotocol.io/)
 
 ## Terms and Conditions
 
