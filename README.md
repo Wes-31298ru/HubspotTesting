@@ -38,7 +38,22 @@ Once you restart Claude Desktop, you'll have access to powerful HubSpot integrat
 
 In addition to HubSpot, you can add the AWS Serverless MCP server for AI-powered serverless development.
 
-### Configuration
+### Quick Setup (Automated)
+
+Use the automated setup script to install and configure everything:
+
+```bash
+./setup-aws-mcp.sh
+```
+
+This script will:
+- Check for AWS CLI installation (and install if needed)
+- Guide you through AWS credentials configuration
+- Set your preferred AWS region
+- Automatically update your Claude Desktop config
+- Verify your AWS connection
+
+### Manual Configuration
 
 Add the following to your `~/.config/claude/claude_desktop_config.json` file (or see `claude_desktop_config.example.json` in this repo):
 
@@ -106,7 +121,21 @@ The HubSpot MCP server provides the following tool categories:
 
 ## Next Steps
 
-1. **Configure AWS Credentials** (if adding AWS Serverless MCP):
+### For AWS Serverless MCP (Quick Setup)
+
+1. **Run the automated setup script**:
+   ```bash
+   ./setup-aws-mcp.sh
+   ```
+   This will handle AWS CLI installation, credentials, and Claude Desktop configuration.
+
+2. **Restart Claude Desktop** to activate the integration
+
+3. **Test the connection** by asking Claude to help with AWS serverless development tasks
+
+### For AWS Serverless MCP (Manual Setup)
+
+1. **Configure AWS Credentials**:
    - Run `aws configure` to set up your AWS credentials
    - Or configure an AWS profile that matches the AWS_PROFILE in your config
 
@@ -114,12 +143,13 @@ The HubSpot MCP server provides the following tool categories:
    - Edit `~/.config/claude/claude_desktop_config.json`
    - Add the AWS Serverless MCP server configuration (see example above)
 
-3. **Restart Claude Desktop** to activate both MCP integrations
+3. **Restart Claude Desktop** to activate the integration
 
-4. **Test the Connections**:
-   - Ask Claude about your HubSpot data
-   - Ask Claude to help with AWS serverless development tasks
-   - Explore the available tools and capabilities from both servers
+### For Both Integrations
+
+- Ask Claude about your HubSpot data
+- Ask Claude to help with AWS serverless development tasks
+- Explore the available tools and capabilities from both servers
 
 ## Security Notes
 
@@ -130,10 +160,22 @@ The HubSpot MCP server provides the following tool categories:
 ## Troubleshooting
 
 If you encounter issues:
+
+### General
 - Ensure Node.js and npm are installed
-- Verify your HubSpot private app has the necessary scopes
 - Check that Claude Desktop has been restarted after configuration
 - Visit https://modelcontextprotocol.io/quickstart/user for more information
+
+### HubSpot MCP Server
+- Verify your HubSpot private app has the necessary scopes
+- Check the access token in your config file
+
+### AWS Serverless MCP Server
+- Run `./setup-aws-mcp.sh` to verify AWS CLI installation and configuration
+- Test AWS connection manually: `aws sts get-caller-identity`
+- Verify your AWS credentials are configured: `aws configure list`
+- Check that your IAM user/role has necessary permissions for serverless services
+- Ensure the AWS_PROFILE in your config matches an existing AWS CLI profile
 
 ## Resources
 
